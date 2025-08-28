@@ -1,0 +1,604 @@
+{
+  "version": "1.0.0",
+  "layers": [
+    {
+      "id": "package-root",
+      "name": "Package",
+      "type": "node",
+      "category": "workspace-scoped",
+      "pillar": "foundationHealth",
+      "description": "Node.js package manifest, lock file, and npm configuration",
+      "patterns": [
+        {
+          "id": "package-json",
+          "name": "package.json",
+          "patterns": [
+            { "type": "exact", "pattern": "package.json" }
+          ]
+        },
+        {
+          "id": "package-lock",
+          "name": "package-lock.json",
+          "patterns": [
+            { "type": "exact", "pattern": "package-lock.json" }
+          ]
+        },
+        {
+          "id": "npm-config",
+          "name": "NPM Configuration",
+          "patterns": [
+            { "type": "exact", "pattern": ".npmrc" }
+          ]
+        }
+      ],
+      "scoping": {
+        "respectWorkspaceBoundaries": true
+      },
+      "ui": {
+        "section": "build"
+      }
+    },
+    {
+      "id": "git-vcs",
+      "name": "Git",
+      "type": "vcs-base",
+      "category": "repository-wide",
+      "pillar": "foundationHealth",
+      "description": "Git version control and configuration",
+      "patterns": [
+        {
+          "id": "git-dir",
+          "name": ".git directory",
+          "patterns": [
+            { "type": "glob", "pattern": ".git/**" }
+          ]
+        },
+        {
+          "id": "git-attributes",
+          "name": ".gitattributes",
+          "patterns": [
+            { "type": "exact", "pattern": ".gitattributes" }
+          ]
+        }
+      ],
+      "scoping": {
+        "respectWorkspaceBoundaries": false,
+        "searchFromRoot": true,
+        "searchDepth": 0
+      },
+      "ui": {
+        "section": "repository"
+      }
+    },
+    {
+      "id": "git-ignore",
+      "name": "Git Ignore",
+      "type": "vcs-ignore",
+      "category": "repository-wide",
+      "description": "Git ignore rules",
+      "patterns": [
+        {
+          "id": "gitignore",
+          "name": ".gitignore",
+          "patterns": [
+            { "type": "exact", "pattern": ".gitignore" }
+          ]
+        }
+      ],
+      "scoping": {
+        "respectWorkspaceBoundaries": false,
+        "searchFromRoot": true,
+        "searchDepth": 0
+      },
+      "ui": {
+        "section": "repository"
+      }
+    },
+    {
+      "id": "root-docs",
+      "name": "Repository Documentation",
+      "type": "docs",
+      "category": "repository-wide",
+      "pillar": "foundationHealth",
+      "description": "Documentation files and folders at repository root level",
+      "patterns": [
+        {
+          "id": "root-docs-files",
+          "name": "Root Documentation & Licensing Files",
+          "patterns": [
+            { "type": "exact", "pattern": "README.md" },
+            { "type": "exact", "pattern": "readme.md" },
+            { "type": "exact", "pattern": "CONTRIBUTING.md" },
+            { "type": "exact", "pattern": "LICENSE" },
+            { "type": "exact", "pattern": "LICENSE.md" },
+            { "type": "exact", "pattern": "CHANGELOG.md" },
+            { "type": "exact", "pattern": "AUTHORS" },
+            { "type": "exact", "pattern": "CONTRIBUTORS" }
+          ]
+        },
+        {
+          "id": "root-docs-folders",
+          "name": "Root Documentation Folders",
+          "patterns": [
+            { "type": "glob", "pattern": "docs/**" },
+            { "type": "glob", "pattern": "documentation/**" },
+            { "type": "glob", "pattern": "doc/**" }
+          ]
+        }
+      ],
+      "scoping": {
+        "respectWorkspaceBoundaries": false,
+        "searchFromRoot": true
+      },
+      "ui": {
+        "section": "repository"
+      }
+    },
+    {
+      "id": "github-actions",
+      "name": "GitHub CI/CD",
+      "type": "ci-cd",
+      "category": "repository-wide",
+      "pillar": "foundationHealth",
+      "description": "GitHub configuration and workflows",
+      "patterns": [
+        {
+          "id": "github-folder",
+          "name": ".github folder",
+          "patterns": [
+            { "type": "glob", "pattern": ".github/**" }
+          ]
+        }
+      ],
+      "scoping": {
+        "respectWorkspaceBoundaries": false,
+        "searchFromRoot": true,
+        "searchPaths": [".github"]
+      },
+      "ui": {
+        "section": "repository"
+      }
+    },
+    {
+      "id": "container-deployment",
+      "name": "Container & Deployment",
+      "type": "deployment",
+      "category": "repository-wide",
+      "pillar": "foundationHealth",
+      "description": "Container and deployment configuration",
+      "patterns": [
+        {
+          "id": "dockerfile",
+          "name": "Dockerfile",
+          "patterns": [
+            { "type": "exact", "pattern": "Dockerfile" },
+            { "type": "glob", "pattern": "Dockerfile.*" },
+            { "type": "glob", "pattern": "*.dockerfile" }
+          ]
+        },
+        {
+          "id": "docker-compose",
+          "name": "Docker Compose",
+          "patterns": [
+            { "type": "exact", "pattern": "docker-compose.yml" },
+            { "type": "exact", "pattern": "docker-compose.yaml" },
+            { "type": "glob", "pattern": "docker-compose.*.yml" },
+            { "type": "glob", "pattern": "docker-compose.*.yaml" }
+          ]
+        },
+        {
+          "id": "gcp-config",
+          "name": "GCP Configuration",
+          "patterns": [
+            { "type": "glob", "pattern": ".gcp/**" }
+          ]
+        },
+        {
+          "id": "makefile",
+          "name": "Makefile",
+          "patterns": [
+            { "type": "exact", "pattern": "Makefile" },
+            { "type": "exact", "pattern": "makefile" }
+          ]
+        }
+      ],
+      "scoping": {
+        "respectWorkspaceBoundaries": false
+      },
+      "ui": {
+        "section": "repository"
+      }
+    },
+    {
+      "id": "typescript",
+      "name": "TypeScript",
+      "type": "compiler",
+      "category": "workspace-scoped",
+      "pillar": "foundationHealth",
+      "description": "TypeScript compiler configuration",
+      "patterns": [
+        {
+          "id": "typescript-config",
+          "name": "TypeScript Configuration",
+          "patterns": [
+            { "type": "exact", "pattern": "tsconfig.json" },
+            { "type": "glob", "pattern": "tsconfig.*.json" }
+          ]
+        }
+      ],
+      "scoping": {
+        "respectWorkspaceBoundaries": true
+      },
+      "ui": {
+        "section": "build"
+      }
+    },
+    {
+      "id": "babel",
+      "name": "Babel",
+      "type": "transpiler",
+      "category": "workspace-scoped",
+      "pillar": "foundationHealth",
+      "description": "Babel JavaScript transpiler configuration",
+      "patterns": [
+        {
+          "id": "babel-config",
+          "name": "Babel Configuration",
+          "patterns": [
+            { "type": "exact", "pattern": ".babelrc" },
+            { "type": "exact", "pattern": ".babelrc.json" },
+            { "type": "exact", "pattern": ".babelrc.js" },
+            { "type": "exact", "pattern": "babel.config.js" },
+            { "type": "exact", "pattern": "babel.config.json" },
+            { "type": "exact", "pattern": "babel.config.mjs" }
+          ]
+        }
+      ],
+      "scoping": {
+        "respectWorkspaceBoundaries": true
+      },
+      "ui": {
+        "section": "build"
+      }
+    },
+    {
+      "id": "webpack",
+      "name": "Webpack",
+      "type": "bundler",
+      "category": "workspace-scoped",
+      "pillar": "foundationHealth",
+      "description": "Webpack module bundler configuration",
+      "patterns": [
+        {
+          "id": "webpack-config",
+          "name": "Webpack Configuration",
+          "patterns": [
+            { "type": "exact", "pattern": "webpack.config.js" },
+            { "type": "exact", "pattern": "webpack.config.ts" },
+            { "type": "glob", "pattern": "webpack.*.js" },
+            { "type": "glob", "pattern": "webpack.*.ts" }
+          ]
+        }
+      ],
+      "scoping": {
+        "respectWorkspaceBoundaries": true
+      },
+      "ui": {
+        "section": "build"
+      }
+    },
+    {
+      "id": "vite",
+      "name": "Vite",
+      "type": "build-tool",
+      "category": "workspace-scoped",
+      "pillar": "foundationHealth",
+      "description": "Vite build tool configuration",
+      "patterns": [
+        {
+          "id": "vite-config",
+          "name": "Vite Configuration",
+          "patterns": [
+            { "type": "exact", "pattern": "vite.config.js" },
+            { "type": "exact", "pattern": "vite.config.ts" },
+            { "type": "exact", "pattern": "vite.config.mjs" }
+          ]
+        }
+      ],
+      "scoping": {
+        "respectWorkspaceBoundaries": true
+      },
+      "ui": {
+        "section": "build"
+      }
+    },
+    {
+      "id": "rollup",
+      "name": "Rollup",
+      "type": "bundler",
+      "category": "workspace-scoped",
+      "pillar": "foundationHealth",
+      "description": "Rollup module bundler configuration",
+      "patterns": [
+        {
+          "id": "rollup-config",
+          "name": "Rollup Configuration",
+          "patterns": [
+            { "type": "exact", "pattern": "rollup.config.js" },
+            { "type": "exact", "pattern": "rollup.config.ts" },
+            { "type": "exact", "pattern": "rollup.config.mjs" }
+          ]
+        }
+      ],
+      "scoping": {
+        "respectWorkspaceBoundaries": true
+      },
+      "ui": {
+        "section": "build"
+      }
+    },
+    {
+      "id": "esbuild",
+      "name": "ESBuild",
+      "type": "bundler",
+      "category": "workspace-scoped",
+      "pillar": "foundationHealth",
+      "description": "ESBuild fast bundler and build tool configuration",
+      "patterns": [
+        {
+          "id": "esbuild-config",
+          "name": "ESBuild Configuration",
+          "patterns": [
+            { "type": "exact", "pattern": "esbuild.config.js" },
+            { "type": "exact", "pattern": "esbuild.config.ts" },
+            { "type": "exact", "pattern": "esbuild.config.mjs" },
+            { "type": "exact", "pattern": "esbuild.js" },
+            { "type": "exact", "pattern": "esbuild.mjs" }
+          ]
+        }
+      ],
+      "scoping": {
+        "respectWorkspaceBoundaries": true
+      },
+      "ui": {
+        "section": "build"
+      }
+    },
+    {
+      "id": "ai-assistant",
+      "name": "AI Assistant Configuration",
+      "type": "ai-config",
+      "category": "workspace-scoped",
+      "pillar": "foundationHealth",
+      "description": "AI assistant tools configuration",
+      "patterns": [
+        {
+          "id": "claude-config",
+          "name": "Claude Configuration",
+          "patterns": [
+            { "type": "glob", "pattern": ".claude/**" },
+            { "type": "exact", "pattern": "CLAUDE.md" }
+          ]
+        },
+        {
+          "id": "gemini-config",
+          "name": "Gemini Configuration",
+          "patterns": [
+            { "type": "glob", "pattern": ".gemini/**" },
+            { "type": "exact", "pattern": "GEMINI.md" }
+          ]
+        },
+        {
+          "id": "cursor-config",
+          "name": "Cursor Configuration",
+          "patterns": [
+            { "type": "glob", "pattern": ".cursorrules" },
+            { "type": "glob", "pattern": ".cursor/**" }
+          ]
+        },
+        {
+          "id": "github-copilot",
+          "name": "GitHub Copilot Configuration",
+          "patterns": [
+            { "type": "glob", "pattern": ".copilot/**" },
+            { "type": "exact", "pattern": ".copilotignore" }
+          ]
+        }
+      ],
+      "scoping": {
+        "respectWorkspaceBoundaries": true
+      },
+      "ui": {
+        "section": "codeAssistant"
+      }
+    },
+    {
+      "id": "ide-config",
+      "name": "IDE & Editor Configuration",
+      "type": "ide-config",
+      "category": "workspace-scoped",
+      "pillar": "foundationHealth",
+      "description": "Editor and IDE configuration files",
+      "patterns": [
+        {
+          "id": "editorconfig",
+          "name": "EditorConfig",
+          "patterns": [
+            { "type": "exact", "pattern": ".editorconfig" }
+          ]
+        },
+        {
+          "id": "vscode-config",
+          "name": "VS Code Configuration",
+          "patterns": [
+            { "type": "glob", "pattern": ".vscode/**" }
+          ]
+        },
+        {
+          "id": "idea-config",
+          "name": "IntelliJ IDEA Configuration",
+          "patterns": [
+            { "type": "glob", "pattern": ".idea/**" }
+          ]
+        },
+        {
+          "id": "sublime-config",
+          "name": "Sublime Text Configuration",
+          "patterns": [
+            { "type": "exact", "pattern": ".sublime-project" },
+            { "type": "exact", "pattern": ".sublime-workspace" }
+          ]
+        }
+      ],
+      "scoping": {
+        "respectWorkspaceBoundaries": true
+      },
+      "ui": {
+        "section": "codeAssistant"
+      }
+    },
+    {
+      "id": "prettier",
+      "name": "Prettier",
+      "type": "code-formatter",
+      "category": "workspace-scoped",
+      "pillar": "foundationHealth",
+      "description": "Prettier code formatter configuration",
+      "patterns": [
+        {
+          "id": "prettier-config",
+          "name": "Prettier Configuration",
+          "patterns": [
+            { "type": "exact", "pattern": ".prettierrc" },
+            { "type": "exact", "pattern": ".prettierrc.json" },
+            { "type": "exact", "pattern": ".prettierrc.js" },
+            { "type": "exact", "pattern": ".prettierrc.yaml" },
+            { "type": "exact", "pattern": ".prettierrc.yml" },
+            { "type": "exact", "pattern": "prettier.config.js" },
+            { "type": "exact", "pattern": "prettier.config.mjs" },
+            { "type": "exact", "pattern": ".prettierignore" }
+          ]
+        }
+      ],
+      "scoping": {
+        "respectWorkspaceBoundaries": true
+      },
+      "ui": {
+        "section": "codeAssistant"
+      }
+    },
+    {
+      "id": "eslint",
+      "name": "ESLint",
+      "type": "code-linter",
+      "category": "workspace-scoped",
+      "pillar": "foundationHealth",
+      "description": "ESLint linting tool configuration and custom rules",
+      "patterns": [
+        {
+          "id": "eslint-config",
+          "name": "ESLint Configuration",
+          "patterns": [
+            { "type": "exact", "pattern": ".eslintrc" },
+            { "type": "exact", "pattern": ".eslintrc.json" },
+            { "type": "exact", "pattern": ".eslintrc.js" },
+            { "type": "exact", "pattern": ".eslintrc.yaml" },
+            { "type": "exact", "pattern": ".eslintrc.yml" },
+            { "type": "exact", "pattern": "eslint.config.js" },
+            { "type": "exact", "pattern": "eslint.config.mjs" },
+            { "type": "exact", "pattern": "eslint.config.cjs" },
+            { "type": "exact", "pattern": ".eslintignore" }
+          ]
+        },
+        {
+          "id": "eslint-rules",
+          "name": "Custom ESLint Rules",
+          "patterns": [
+            { "type": "glob", "pattern": "eslint-rules/**" },
+            { "type": "glob", "pattern": "**/eslint-rules/**" }
+          ]
+        }
+      ],
+      "scoping": {
+        "respectWorkspaceBoundaries": true
+      },
+      "ui": {
+        "section": "codeAssistant"
+      }
+    }
+  ],
+  "sections": {
+    "repositoryWide": [
+      {
+        "id": "version-control",
+        "title": "Version Control",
+        "description": "Git configuration and ignore rules",
+        "order": 1,
+        "collapsible": true,
+        "defaultCollapsed": true,
+        "layers": ["git-vcs", "git-ignore"]
+      },
+      {
+        "id": "repository-docs",
+        "title": "Repository Documentation",
+        "description": "Documentation at the repository level",
+        "order": 2,
+        "collapsible": true,
+        "defaultCollapsed": true,
+        "layers": ["root-docs"]
+      },
+      {
+        "id": "ci-cd-deployment",
+        "title": "CI/CD & Deployment",
+        "description": "Continuous integration, deployment, and containerization",
+        "order": 3,
+        "collapsible": true,
+        "defaultCollapsed": true,
+        "layers": ["github-actions", "container-deployment"]
+      }
+    ],
+    "workspaceScoped": [
+      {
+        "id": "package-config",
+        "title": "Package Configuration",
+        "description": "Package manifest and dependencies",
+        "order": 1,
+        "collapsible": false,
+        "layers": ["package-root"]
+      },
+      {
+        "id": "build-tools",
+        "title": "Build Tools",
+        "description": "Compilation and bundling configuration",
+        "order": 2,
+        "collapsible": false,
+        "layers": ["typescript", "webpack", "vite", "esbuild"]
+      },
+      {
+        "id": "code-assistant-tools",
+        "title": "Code Assistant Tools",
+        "description": "Tools that help with code quality and development",
+        "order": 3,
+        "collapsible": false,
+        "layers": ["project-docs", "ai-assistant", "ide-config", "prettier", "eslint"]
+      },
+      {
+        "id": "frameworks",
+        "title": "Frameworks",
+        "description": "Application frameworks detected from dependencies",
+        "order": 4,
+        "collapsible": true,
+        "showIfEmpty": false
+      },
+      {
+        "id": "dependencies",
+        "title": "Dependencies",
+        "description": "External packages used by the project",
+        "order": 5,
+        "collapsible": true,
+        "defaultCollapsed": true,
+        "showIfEmpty": false
+      }
+    ]
+  }
+}
