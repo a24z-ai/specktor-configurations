@@ -1,27 +1,20 @@
 {
   "version": "1.0",
-  "description": "File system filters applied during directory scanning for performance optimization",
+  "description": "Default file system filters for performance optimization",
   "filters": [
     {
       "id": "scan-filter-git-objects",
       "name": "Git Internal Objects",
       "enabled": true,
       "purpose": "performance",
-      "description": "Exclude git internal object storage to improve scan performance",
+      "sourceDirectory": "",
+      "description": "Exclude git internal object storage",
       "patterns": [
         { "type": "glob", "pattern": ".git/objects/**" },
         { "type": "glob", "pattern": ".git/logs/**" },
         { "type": "glob", "pattern": ".git/refs/**" },
-        { "type": "glob", "pattern": ".git/hooks/**" }
-      ]
-    },
-    {
-      "id": "scan-filter-git-index",
-      "name": "Git Index Files",
-      "enabled": true,
-      "purpose": "performance",
-      "description": "Exclude git index and pack files",
-      "patterns": [
+        { "type": "glob", "pattern": ".git/hooks/**" },
+        { "type": "glob", "pattern": ".git/worktrees/**" },
         { "type": "glob", "pattern": ".git/index" },
         { "type": "glob", "pattern": ".git/*.pack" },
         { "type": "glob", "pattern": ".git/*.idx" }
@@ -32,45 +25,38 @@
       "name": "Package Dependencies",
       "enabled": true,
       "purpose": "performance",
+      "sourceDirectory": "",
       "description": "Exclude package manager dependency directories",
+      "generateWarning": {
+        "layerId": "committed-dependencies-warning",
+        "layerName": "⚠️ Committed Dependencies",
+        "message": "Large dependency directories found in repository - should be excluded from version control",
+        "recommendation": "Add dependency directories to .gitignore and remove from version control",
+        "impact": "Large repository size, slow clones, potential version conflicts, and security vulnerabilities"
+      },
       "patterns": [
-        { "type": "glob", "pattern": "node_modules/**" },
         { "type": "glob", "pattern": "**/node_modules/**" },
-        { "type": "glob", "pattern": "vendor/**" },
         { "type": "glob", "pattern": "**/vendor/**" },
         { "type": "glob", "pattern": ".pnpm/**" },
-        { "type": "glob", "pattern": "bower_components/**" }
-      ],
-      "generateWarning": {
-        "layerId": "committed-node-modules",
-        "layerName": "⚠️ Committed node_modules",
-        "severity": "error",
-        "message": "node_modules directory found in repository - should be excluded from version control",
-        "recommendation": "Add node_modules to .gitignore and remove from version control with: git rm -r --cached node_modules && echo 'node_modules/' >> .gitignore",
-        "impact": "Large repository size, slow clones, potential version conflicts, and security vulnerabilities"
-      }
+        { "type": "glob", "pattern": "bower_components/**" },
+        { "type": "glob", "pattern": "**/fixtures/**" }
+      ]
     },
     {
       "id": "scan-filter-build-outputs",
       "name": "Build Outputs",
       "enabled": true,
       "purpose": "performance",
+      "sourceDirectory": "",
       "description": "Exclude common build output directories",
       "patterns": [
-        { "type": "glob", "pattern": "dist/**" },
         { "type": "glob", "pattern": "**/dist/**" },
-        { "type": "glob", "pattern": "build/**" },
         { "type": "glob", "pattern": "**/build/**" },
-        { "type": "glob", "pattern": "out/**" },
         { "type": "glob", "pattern": "**/out/**" },
-        { "type": "glob", "pattern": "target/**" },
         { "type": "glob", "pattern": "**/target/**" },
-        { "type": "glob", "pattern": ".next/**" },
         { "type": "glob", "pattern": "**/.next/**" },
         { "type": "glob", "pattern": ".nuxt/**" },
-        { "type": "glob", "pattern": "**/.nuxt/**" },
-        { "type": "glob", "pattern": ".output/**" },
-        { "type": "glob", "pattern": "**/.output/**" }
+        { "type": "glob", "pattern": ".output/**" }
       ]
     },
     {
@@ -78,55 +64,44 @@
       "name": "Cache Directories",
       "enabled": true,
       "purpose": "performance",
+      "sourceDirectory": "",
       "description": "Exclude cache and temporary directories",
       "patterns": [
         { "type": "glob", "pattern": ".cache/**" },
         { "type": "glob", "pattern": "**/cache/**" },
-        { "type": "glob", "pattern": "tmp/**" },
-        { "type": "glob", "pattern": "temp/**" },
+        { "type": "glob", "pattern": "**/tmp/**" },
+        { "type": "glob", "pattern": "**/temp/**" },
         { "type": "glob", "pattern": ".tmp/**" },
         { "type": "glob", "pattern": ".temp/**" }
       ]
     },
     {
-      "id": "scan-filter-coverage",
+      "id": "scan-filter-test-coverage",
       "name": "Test Coverage",
       "enabled": true,
       "purpose": "performance",
+      "sourceDirectory": "",
       "description": "Exclude test coverage reports",
       "patterns": [
         { "type": "glob", "pattern": "coverage/**" },
         { "type": "glob", "pattern": ".nyc_output/**" },
+        { "type": "glob", "pattern": "**/*.lcov" },
         { "type": "glob", "pattern": "*.lcov" }
       ]
     },
     {
-      "id": "scan-filter-ide",
-      "name": "IDE Directories",
+      "id": "scan-filter-ide-files",
+      "name": "IDE and Editor Files",
       "enabled": true,
       "purpose": "performance",
-      "description": "Exclude IDE-specific directories",
+      "sourceDirectory": "",
+      "description": "Exclude IDE configuration and temporary editor files",
       "patterns": [
         { "type": "glob", "pattern": ".idea/**" },
         { "type": "glob", "pattern": ".vscode/**" },
         { "type": "glob", "pattern": "*.swp" },
         { "type": "glob", "pattern": "*.swo" },
         { "type": "glob", "pattern": ".DS_Store" }
-      ]
-    },
-    {
-      "id": "scan-filter-large-assets",
-      "name": "Large Binary Assets",
-      "enabled": false,
-      "purpose": "performance",
-      "description": "Optionally exclude large binary files (disabled by default)",
-      "patterns": [
-        { "type": "glob", "pattern": "**/*.zip" },
-        { "type": "glob", "pattern": "**/*.tar.gz" },
-        { "type": "glob", "pattern": "**/*.dmg" },
-        { "type": "glob", "pattern": "**/*.iso" },
-        { "type": "glob", "pattern": "**/*.mp4" },
-        { "type": "glob", "pattern": "**/*.mov" }
       ]
     }
   ]
